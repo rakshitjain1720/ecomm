@@ -1,11 +1,58 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.body{
+  background-color: rgb(180, 180, 180);
+}
+.store-name {
   text-align: center;
+}
+.product-list {
+  text-align: center;
+  margin-top: 20px;
+}
+#filter {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  width: 200px;
+}
+
+#filter option {
+  font-size: 16px;
+  background-color: #000000;
+}
+.container {
+  justify-content: center;
+  margin-left: 80px;
+}
+.card-container {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .card {
-  padding: 2em;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #000000;
+  border-radius: 17px;
+  padding: 10px;
+  width: 250px;
+  height: auto;
 }
 
+.card-title{
+  height: 35px;
+  overflow: hidden;
+}
+
+.card-text{
+  height: 50px;
+  overflow: hidden;
+}
+
+.card-price{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: black;
+}
