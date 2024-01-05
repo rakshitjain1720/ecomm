@@ -29,7 +29,7 @@ const ProductList = () => {
       case "electronics":
         return products.filter((product) => product.category === "electronics");
       case "jewelry":
-        return products.filter((product) => product.category === "jewelery");
+        return products.filter((product) => product.category === "jewelry");
       default:
         return products;
     }
