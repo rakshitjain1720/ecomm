@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const ProductList = () => {
-  const [products, setProducts] = useState([
+const Apifetching = () => {
+ const [products, setProducts] = useState([
     {
       id: 0,
       image: "",
@@ -13,31 +13,37 @@ const ProductList = () => {
       description: "",
       category: "",
     },
-  ]);
-  const [filterCriteria, setFilterCriteria] = useState("all");
+ ]);
+ const [filterCriteria, setFilterCriteria] = useState("all");
+ const [search, setSearch] = useState("");
 
-  const filterProducts = () => {
-    switch (filterCriteria) {
-      case "menClothes":
-        return products.filter(
-          (product) => product.category === "men's clothing"
-        );
-      case "womenClothes":
-        return products.filter(
-          (product) => product.category === "women's clothing"
-        );
-      case "electronics":
-        return products.filter((product) => product.category === "electronics");
-      case "jewelry":
-        return products.filter((product) => product.category === "jewelry");
-      default:
-        return products;
+ const filterProducts = () => {
+  let filtered = [];
+
+  for (let i = 0; i < products.length; i++) {
+   const details = products[i];
+    
+   if (filterCriteria === "all" || details.category === filterCriteria)  {
+      filtered.push(details);
+   }
+  }
+
+    if (search) {
+      const query = search.toLowerCase();
+      filtered = filtered.filter(
+        (show) =>
+          show.title.toLowerCase().includes(query) ||
+          show.description.toLowerCase().includes(query)
+      );
     }
-  };
 
-  const filteredProducts = filterProducts();
+    return filtered;
+ };
+  
+  
+ const filteredProducts = filterProducts();
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("https://fakestoreapi.com/products");
@@ -49,40 +55,56 @@ const ProductList = () => {
     };
 
     fetchData();
-  }, []);
+ }, []);
 
-  return (
-    <div>
-      <h1 className="store-name">Product List</h1>
-      <div>
-        <select
-          id="filter"
-          onChange={(e) => setFilterCriteria(e.target.value)}
-          value={filterCriteria}
-        >
-          <option value="all">All Products</option>
-          <option value="under10">Mens Cloth's</option>
-          <option value="over10">Women Cloth's</option>
-          <option value="over10">Electronic</option>
-          <option value="over10">Jewelry</option>
-        </select>
+ return (
+    <div className="control">
+      <h1 className="text-center md-4 store-name">Rj Store</h1>
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-md-3">
+            <select
+              id="filter"
+              onChange={(e) => setFilterCriteria(e.target.value)}
+              value={filterCriteria}
+              className="form-select"
+            >
+              <option value="all">All Products</option>
+              <option value="men's clothing">Mens Cloth's</option>
+              <option value="women's clothing">Women Cloth's</option>
+              <option value="electronics">Electronic</option>
+              <option value="jewelery">Jewelry</option>
+            </select>
+          </div>
+          <div className="col-md-3">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="form-control"
+            />
+          </div>
+        </div>
       </div>
-      <div className="container">
-        <div className="card-container">
+      <div className="container mt-4 ">
+        <div className="row">
           {filteredProducts.map((product) => (
-            <div className="card" key={product.id}>
-              <img src={product.image} />
-              <div className="card-details">
-                <h2 className="card-title">{product.title}</h2>
-                <h2 className="card-des">{product.description}</h2>
-                <p className="card-price">${product.price}</p>
+            <div className="col-md-4 mb-4" key={product.id}>
+              <div className="card">
+                <img src={product.image} className="card-img-top" alt={product.title} />
+                <div className="card-body">
+                 <h5 className="card-title">{product.title}</h5>
+                 <p className="card-text">{product.description}</p>
+                 <p className="card-text"><b>${product.price}</b></p>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
-  );
+ );
 };
 
-export default ProductList;
+export default Apifetching;
