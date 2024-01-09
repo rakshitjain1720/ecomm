@@ -2,27 +2,23 @@
 	padding: 0;
 	margin: 0;
 }
-/* .control{
-  background-color: rgb(116, 116, 116);  
-} */
-/* .container{ */
-  /* background-color: aqua;   */
-  /* width:; */
-  /* justify-content:; */
-/* } */
-.store-name {
+.heading {
   color: #ff9900;
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 10px;
   text-align: center;
-  /* padding-top: 17px; */
   margin-top: 17px;
 }
-
+.form-control{
+  margin-left: 10px;
+}
+.form-select{
+  margin-left: 10px;
+}
 .card{
   float: left;
-	padding: 17px;
+	padding: 15px;
 	text-align: center;
 	box-shadow: 0 0 2px 2px rgba(112, 112, 112, 0.281);
 	margin: 10px;
@@ -45,7 +41,4 @@
 }
 .card-price{
   font-size: larger;
-}
-.btn{
-  
 }
