@@ -1,20 +1,31 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
 * {
 	padding: 0;
 	margin: 0;
 }
+
 .heading {
   color: #ff9900;
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px;
   text-align: center;
-  margin-top: 17px;
+  margin-top: 17px; */
 }
 .form-control{
+  box-shadow: 0 0 2px 2px rgba(112, 112, 112, 0.281);
   margin-left: 10px;
+	border-radius: 20px;
 }
 .form-select{
+  box-shadow: 0 0 2px 2px rgba(112, 112, 112, 0.281);
   margin-left: 10px;
+	border-radius: 20px;
 }
 .card{
   float: left;

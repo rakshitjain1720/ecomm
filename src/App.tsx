@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Present from "./ProductCard";
+import Seacrhfilter from "./SearchDrop";
+// import { Route, Switch } from "react-router-dom";
 
 const Apifetching = () => {
   const [products, setProducts] = useState([
@@ -22,6 +25,7 @@ const Apifetching = () => {
   const [filterCriteria, setFilterCriteria] = useState("all");
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState([]);
+  // const [titleSuggestions, setTitleSuggestions] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -41,6 +45,10 @@ const Apifetching = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  // useEffect(() => {
+  //   const titles = products.map((product) => product.title);
+  //   setTitleSuggestions([...new Set(titles)]);
+  // }, [products]);
 
   const filterProducts = () => {
     let filtered = [];
@@ -65,57 +73,29 @@ const Apifetching = () => {
     return filtered;
   };
 
-  // const filterBySearch = () => {
-  //   let filtered = [...products];
-
-  //   if (search) {
-  //     const query = search.toLowerCase();
-  //     filtered = filtered.filter(
-  //       (product) =>
-  //         product.title.toLowerCase().includes(query) ||
-  //         product.description.toLowerCase().includes(query)
-  //     );
-  //   }
-
-  //   return filtered;
-  // };
-
-  // const filterByCategory = () => {
-  //   let filtered = [...products];
-
-  //   if (filterCriteria !== "all") {
-  //     filtered = filtered.filter(product => product.category === filterCriteria);
-  //   }
-
-  //   return filtered;
-  // };
-
-  // const searchFilteredProducts = filterBySearch();
-  // const categoryFilteredProducts = filterByCategory();
-
-  //  const filteredProducts = filterCriteria === "all" ? searchFilteredProducts : categoryFilteredProducts;
-
-  //   const filterProducts = () => {
-  //   let filtered = [...products];
-
-  //   if (search) {
-  //     const query = search.toLowerCase();
-  //     filtered = filtered.filter(
-  //       (product) =>
-  //         product.title.toLowerCase().includes(query) ||
-  //         product.description.toLowerCase().includes(query)
-  //     );
-  //   }
-
-  //   return filtered;
-  // };
-
   const filteredProducts = filterProducts();
 
   return (
-    <div >
-      <h1 className="text-center md-4 heading">Rj Store</h1>
-      <div className="row mb-3">
+    <div>
+      {/* <Switch>
+      <Route  path="/" Component={Present}/>
+      <Route path="/" Component={Seacrhfilter}/>
+    </Switch> */}
+
+      <h1 className="text-center mb-4 heading">Rj Store</h1>
+      <Seacrhfilter
+        filterCriteria={filterCriteria}
+        setFilterCriteria={setFilterCriteria}
+        categories={categories}
+        search={search}
+        setSearch={setSearch}
+      />
+      <div className="row">
+        {filteredProducts.map((product) => (
+          <Present key={product.id} product={product} />
+        ))}
+      </div>
+      {/* <div className="row mb-2">
         <div className="col-md-4">
           <select
             className="form-select mb-3"
@@ -139,8 +119,9 @@ const Apifetching = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-      </div>
-      <div className="row">
+      </div> */}
+
+      {/* <div className="row">
         {filteredProducts.map((product) => (
           <div className="col-lg-4 col-md-6 mb-4" key={product.id}>
             <div className="card">
@@ -160,7 +141,7 @@ const Apifetching = () => {
                 <p className="card-rate">
                   <b>Rating:-</b> {product.rating.rate}
                 </p>
-                {/* <p className="card-text"><b>{product.rating.count}</b></p> */}
+
                 <a href="#" className="btn btn-primary">
                   Add to cart
                 </a>
@@ -168,7 +149,7 @@ const Apifetching = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
