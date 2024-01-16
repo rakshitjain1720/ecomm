@@ -1,4 +1,4 @@
-const Seacrhfilter = ({
+const SearchDrop = ({
   filterCriteria,
   setFilterCriteria,
   categories,
@@ -39,4 +39,4 @@ const Seacrhfilter = ({
     </div>
   );
 };
-export default Seacrhfilter;
+export default SearchDrop;

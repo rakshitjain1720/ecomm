@@ -1,4 +1,4 @@
-const Present = ({ product }: { product: any }) => {
+const ProductCard = ({ product }: { product: any }) => {
   return (
     <div className="col-lg-4 col-md-6 mb-4" key={product.id}>
       <div className="card">
@@ -24,4 +24,4 @@ const Present = ({ product }: { product: any }) => {
   );
 };
 
-export default Present;
+export default ProductCard;
