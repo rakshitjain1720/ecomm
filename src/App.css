@@ -1,50 +1,37 @@
 /* .store-name{
   text-align: center;
 }
-.product-list {
-  text-align: center;
-  margin-top: 20px;
-}
-#filter {
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  width: 200px;
-}
-#filter option {
-  font-size: 16px;
-  background-color: #000000;
-} */
-
 * {
 	padding: 0;
 	margin: 0;
 }
-.control{
-  background-color: aqua;  
-}
-.store-name {
+
+.heading {
   color: #ff9900;
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px;
   text-align: center;
- }
-.container{
-  /* border: 1px solid rebeccapurple; */
+  margin-top: 17px; */
+/* } */
+.form-control{
+  box-shadow: 0 0 2px 2px rgba(112, 112, 112, 0.281);
+  margin-left: 10px;
+	border-radius: 20px;
+}
+.form-select{
+  box-shadow: 0 0 2px 2px rgba(112, 112, 112, 0.281);
+  margin-left: 10px;
+	border-radius: 20px;
 }
 .card{
   float: left;
-	padding: 16px;
+	padding: 15px;
 	text-align: center;
 	box-shadow: 0 0 2px 2px rgba(112, 112, 112, 0.281);
 	margin: 10px;
 	border-radius: 20px;
-  justify-content: center;
-  /* text-align: center;  */
+  /* justify-content: center; */
 }
 .card-img-top{
   width: 240px;
@@ -53,10 +40,13 @@
 }
 
 .card-title{
-  height: 30px;
+  height: 27px;
   overflow: hidden;
 }
 .card-text{
   height: 50px;
   overflow: hidden;
+}
+.card-price{
+  font-size: larger;
 }
