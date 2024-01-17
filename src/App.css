@@ -1,4 +1,7 @@
-/* .store-name{
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
 }
 * {
@@ -13,7 +16,7 @@
   /* margin-bottom: 10px;
   text-align: center;
   margin-top: 17px; */
-/* } */
+}
 .form-control{
   box-shadow: 0 0 2px 2px rgba(112, 112, 112, 0.281);
   margin-left: 10px;

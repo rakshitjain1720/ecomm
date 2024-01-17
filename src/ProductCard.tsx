@@ -1,6 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 const ProductCard = ({ product }: { product: any }) => {
+  const navigate = useNavigate();
+  const handleProductClick = () => {
+    navigate(`/product/${product.id}`);
+  };
   return (
-    <div className="col-lg-4 col-md-6 mb-4" key={product.id}>
+    <div className="col-lg-4 col-md-6 mb-4" key={product.id} onClick={handleProductClick}>
       <div className="card">
         <div>
           <h5 className="card-title">{product.title}</h5>

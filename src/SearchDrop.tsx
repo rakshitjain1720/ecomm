@@ -6,10 +6,11 @@ const SearchDrop = ({
   setSearch,
 }: {
   filterCriteria: string;
-  setFilterCriteria: any;
+  setFilterCriteria: React.Dispatch<React.SetStateAction<string>>;
   categories: string[];
   search: string;
-  setSearch: any;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  
 }) => {
   return (
     <div className="row mb-2">
@@ -35,6 +36,12 @@ const SearchDrop = ({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+          <datalist id="productSuggestions">
+          {/* Add dynamic data list options based on API response */}
+          {categories.map((category, index) => (
+            <option key={index} value={category.title} />
+          ))}
+        </datalist>
       </div>
     </div>
   );

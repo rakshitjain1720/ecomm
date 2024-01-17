@@ -4,8 +4,9 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductCard from "./ProductCard";
 import SearchDrop from "./SearchDrop";
-// import Tprops from "./type"
-import { Routes, Route } from "react-router-dom";
+// import Props from "./type"
+// import Layout from "./Layout";
+// import { Routes, Route } from "react-router-dom";
 
 const Apifetching = () => {
   const [products, setProducts] = useState([
@@ -27,24 +28,24 @@ const Apifetching = () => {
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState([]);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      console.log(response.data);
-      setProducts(response.data);
-
-      const uniqueCategories = [
-        ...new Set(products.map((product) => product.category)),
-      ];
-      setCategories(uniqueCategories);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://fakestoreapi.com/products");
+        console.log(response.data);
+        setProducts(response.data);
+  
+        const choose = [
+          ...new Set(products.map((product) => product.category)),
+        ];
+        setCategories(choose);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     fetchData();
-  }, []);
+  }, [products]);
 
 
   const filterProducts = () => {
@@ -76,7 +77,8 @@ const Apifetching = () => {
     <div>
       <h1 className="text-center mb-4 heading">Rj Store</h1>
 
-      <Routes>
+      {/* <Routes>
+      <Route path="/" element={<Layout />}/>
         <Route path="/" element={<SearchDrop
           filterCriteria={filterCriteria}
           setFilterCriteria={setFilterCriteria}
@@ -84,9 +86,24 @@ const Apifetching = () => {
           search={search}
           setSearch={setSearch}
         />} />
-        <Route path="/ProductCard" element={<ProductCard/>}/>
-      </Routes>
-
+        <Route
+          path="/products"
+          element={
+            <div className="row">
+              {filteredProducts.map((product) => (
+                <ProductCard product={product} />
+              ))}
+            </div>
+          }
+        />
+      </Routes> */}
+      <SearchDrop
+          filterCriteria={filterCriteria}
+          setFilterCriteria={setFilterCriteria}
+          categories={categories}
+          search={search}
+          setSearch={setSearch}
+        />
       <div className="row">
         {filteredProducts.map((product) => (
           <ProductCard product={product} />

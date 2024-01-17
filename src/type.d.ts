@@ -1,4 +1,4 @@
-interface Tprops {
+interface Props {
     id: number,
     image: string,
     title: string,
@@ -9,4 +9,4 @@ interface Tprops {
         rate: number,
         count: number,
     }
-};
+}
