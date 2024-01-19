@@ -4,112 +4,70 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductCard from "./ProductCard";
 import SearchDrop from "./SearchDrop";
-// import Props from "./type"
-// import Layout from "./Layout";
-// import { Routes, Route } from "react-router-dom";
+import CartDisplay from "./CartDisplay";
 
 const Apifetching = () => {
-  const [products, setProducts] = useState([
-    {
-      id: 0,
-      image: "",
-      title: "",
-      price: 0,
-      description: "",
-      category: "",
-      rating: {
-        rate: 0,
-        count: 0,
-      },
-    },
-  ]);
+  const [products, setProducts] = useState<Props[]>([]);
+  const [filterCriteria, setFilterCriteria] = useState<string>("all");
+  const [search, setSearch] = useState<string>("");
+  const [categories, setCategories] = useState<string[]>([]);
+  const [cartItems, setCartItems] = useState<Props[]>([]); 
 
-  const [filterCriteria, setFilterCriteria] = useState("all");
-  const [search, setSearch] = useState("");
-  const [categories, setCategories] = useState([]);
-
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        console.log(response.data);
+        const response = await axios.get<Props[]>(
+          "https://fakestoreapi.com/products"
+        );
         setProducts(response.data);
-  
-        const choose = [
-          ...new Set(products.map((product) => product.category)),
-        ];
-        setCategories(choose);
+
+        const uniqueCategories = Array.from(
+          new Set(response.data.map((product) => product.category))
+        );
+        setCategories(uniqueCategories);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, [products]);
+  }, []);
 
+  const filterProducts = (details: Props): boolean => {
+    const categoryMatch =
+      filterCriteria === "all" || details.category === filterCriteria;
+    const searchMatch =
+      !search ||
+      details.title.toLowerCase().includes(search.toLowerCase()) ||
+      details.description.toLowerCase().includes(search.toLowerCase());
 
-  const filterProducts = () => {
-    let filtered = [];
-    // console.log(filtered);
-    for (let i = 0; i < products.length; i++) {
-      const details = products[i];
-
-      if (filterCriteria === "all" || details.category === filterCriteria) {
-        filtered.push(details);
-      }
-    }
-
-    if (search) {
-      const query = search.toLowerCase();
-      filtered = filtered.filter(
-        (show) =>
-          show.title.toLowerCase().includes(query) ||
-          show.description.toLowerCase().includes(query)
-      );
-    }
-
-    return filtered;
+    return categoryMatch && searchMatch;
   };
 
-  const filteredProducts = filterProducts();
+  const filteredProducts = products.filter(filterProducts);
+
+  const addToCart = (item: Props) => {
+    setCartItems([...cartItems, item]);
+  };
 
   return (
     <div>
       <h1 className="text-center mb-4 heading">Rj Store</h1>
 
-      {/* <Routes>
-      <Route path="/" element={<Layout />}/>
-        <Route path="/" element={<SearchDrop
-          filterCriteria={filterCriteria}
-          setFilterCriteria={setFilterCriteria}
-          categories={categories}
-          search={search}
-          setSearch={setSearch}
-        />} />
-        <Route
-          path="/products"
-          element={
-            <div className="row">
-              {filteredProducts.map((product) => (
-                <ProductCard product={product} />
-              ))}
-            </div>
-          }
-        />
-      </Routes> */}
       <SearchDrop
-          filterCriteria={filterCriteria}
-          setFilterCriteria={setFilterCriteria}
-          categories={categories}
-          search={search}
-          setSearch={setSearch}
-        />
+        filterCriteria={filterCriteria}
+        setFilterCriteria={setFilterCriteria}
+        categories={categories}
+        search={search}
+        setSearch={setSearch}
+      />
       <div className="row">
         {filteredProducts.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard key={product.id} product={product} addToCart={addToCart}/>
         ))}
       </div>
+      {cartItems.length > 0 && <CartDisplay cartItems={cartItems} />}
     </div>
   );
 };
+
 export default Apifetching;

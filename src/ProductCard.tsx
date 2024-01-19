@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
-const ProductCard = ({ product }: { product: any }) => {
+const ProductCard = ({ product }: { product: Props }) => {
   const navigate = useNavigate();
   const handleProductClick = () => {
     navigate(`/product/${product.id}`);
+  };
+  const handleAddToCart = () => {
+    addToCart(product);
   };
   return (
     <div className="col-lg-4 col-md-6 mb-4" key={product.id} onClick={handleProductClick}>
@@ -21,7 +24,7 @@ const ProductCard = ({ product }: { product: any }) => {
             <b>Rating:-</b> {product.rating.rate}
           </p>
           {/* <p className="card-text"><b>{product.rating.count}</b></p> */}
-          <a href="#" className="btn btn-primary">
+          <a href="#" className="btn btn-primary" onClick={handleAddToCart}>
             Add to cart
           </a>
         </div>
